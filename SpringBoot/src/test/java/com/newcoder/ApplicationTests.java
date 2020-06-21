@@ -1,10 +1,10 @@
-package cong.newcoder;
+package com.newcoder;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class NewcoderApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
