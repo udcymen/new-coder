@@ -1,10 +1,12 @@
-package com.newcoder.repository.models;
+package com.newcoder.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "labels")
-public class Label extends AduitModel {
+public class Label extends AuditModel {
     @Id
     @GeneratedValue(generator = "label_generator")
     @SequenceGenerator(
@@ -14,7 +16,9 @@ public class Label extends AduitModel {
     )
     private long id;
 
-    @Column(nullable = false, updatable = false)
+    @Column(updatable = false)
+    @NotBlank
+    @Size(max = 20)
     private String name;
 
     public long getId() {

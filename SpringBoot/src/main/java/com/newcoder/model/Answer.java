@@ -1,12 +1,16 @@
-package com.newcoder.repository.models;
+package com.newcoder.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import javax.validation.constraints.NotBlank;
 import java.time.Duration;
 
 @Entity
 @Table(name = "answers")
-public class Answer extends AduitModel {
+public class Answer extends AuditModel {
     @Id
     @GeneratedValue(generator = "answer_generator")
     @SequenceGenerator(
@@ -16,16 +20,25 @@ public class Answer extends AduitModel {
     )
     private long id;
 
-    @Column(nullable = false)
+    @NotBlank
     private Duration duration;
 
-    @Column(nullable = false, updatable = false)
+    @Column(updatable = false)
+    @NotBlank
     private int version;
 
-    @Column(nullable = false)
+    @NotBlank
+    @Lob
     private String content;
 
+    @Lob
     private String note;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "question_id", nullable = false, updatable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Question question;
 
     public long getId() {
         return id;
@@ -66,4 +79,8 @@ public class Answer extends AduitModel {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public Question getQuestion() { return question; }
+
+    public void setQuestion(Question question) { this.question = question; }
 }

@@ -1,11 +1,16 @@
-package com.newcoder.repository.models;
+package com.newcoder.model;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
 @Table(name = "questions")
-public class Question extends AduitModel {
+public class Question extends AuditModel {
     @Id
     @GeneratedValue(generator = "question_generator")
     @SequenceGenerator(
@@ -15,18 +20,21 @@ public class Question extends AduitModel {
     )
     private long id;
 
-    @Column(nullable = false)
+    @NotBlank
+    @Size(min = 3, max = 100)
     private String title;
 
-    @Column(nullable = false)
+    @NotBlank
+    @Lob
     private String description;
 
-    @Column(nullable = false)
+    @NotBlank
     @OneToMany
     private Set<Label> labels;
 
-    @Column(name = "related_questions")
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Question> relatedQuestions;
 
     public long getId() {
