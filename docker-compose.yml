@@ -11,4 +11,11 @@ services:
             POSTGRES_PASSWORD: postgres
             POSTGRES_DB: postgres
         volumes:
-            - ./docker/volumes/postgres:/var/lib/postgresql/data
+            - $HOME/docker/volumes/postgres:/var/lib/postgresql/data
+            - $HOME/docker/volumes/db_backup:/var/db_backup
+        restart: unless-stopped
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
