@@ -25,7 +25,6 @@ public class Question extends AuditModel {
     private String title;
 
     @NotBlank
-    @Lob
     private String description;
 
     @NotBlank
@@ -33,7 +32,7 @@ public class Question extends AuditModel {
     private Set<Label> labels;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "question_id", nullable = false)
+    @JoinColumn(name = "question_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Question> relatedQuestions;
 
