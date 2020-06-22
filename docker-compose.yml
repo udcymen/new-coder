@@ -1,6 +1,6 @@
 version: "3"
 services:
-    ccontroller:
+    controller:
         image: congmeng1015/newcoder:latest
         container_name: springboot_app
         ports:
