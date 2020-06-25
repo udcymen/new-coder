@@ -23,9 +23,9 @@ public class Answer extends AuditModel {
     @NotBlank
     private Duration duration;
 
-    @Column(updatable = false)
     @NotBlank
-    private int version;
+    @Version
+    private short version;
 
     @NotBlank
     @Lob
