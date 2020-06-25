@@ -1,8 +1,12 @@
-version: "3"
+version: "3.2"
+networks:
+  default:
+    external:
+      name: local_test
 services:
     controller:
         image: congmeng1015/newcoder:latest
-        container_name: springboot_app
+        container_name: newcoder_springboot
         ports:
           - "8080:8080"
         volumes:
@@ -11,7 +15,7 @@ services:
           - database
     database:
         image: postgres
-        container_name: database
+        container_name: newcoder_database
         hostname: postgres
         ports:
             - "5432:5432"

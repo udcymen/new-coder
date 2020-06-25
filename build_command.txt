@@ -1,6 +1,0 @@
-backend:
-    ./gradlew clean build
-    docker build -t congmeng1015/newcoder --build-arg JAR_FILE=build/libs/*.jar .
-
-root:
-    docker-compose up
