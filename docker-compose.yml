@@ -15,7 +15,7 @@ services:
           - database
     database:
         image: postgres
-        container_name: newcoder_database
+        container_name: database
         hostname: postgres
         ports:
             - "5432:5432"

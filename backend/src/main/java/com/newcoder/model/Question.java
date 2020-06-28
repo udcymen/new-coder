@@ -25,15 +25,12 @@ public class Question extends AuditModel {
     private String title;
 
     @NotBlank
+    @Lob
     private String description;
-
-    @NotBlank
-    @OneToMany
-    private Set<Label> labels;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Set<Question> relatedQuestions;
 
     public long getId() {
@@ -58,14 +55,6 @@ public class Question extends AuditModel {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<Label> getLabels() {
-        return labels;
-    }
-
-    public void setLabels(Set<Label> labels) {
-        this.labels = labels;
     }
 
     public Set<Question> getRelatedQuestions() {

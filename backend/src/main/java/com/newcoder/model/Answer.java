@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.Duration;
+import java.util.Set;
 
 @Entity
 @Table(name = "answers")
@@ -34,6 +35,10 @@ public class Answer extends AuditModel {
     @Lob
     private String note;
 
+    @NotBlank
+    @OneToMany
+    private Set<Label> labels;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "question_id", nullable = false, updatable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -60,7 +65,7 @@ public class Answer extends AuditModel {
         return version;
     }
 
-    public void setVersion(int version) {
+    public void setVersion(short version) {
         this.version = version;
     }
 
@@ -83,4 +88,12 @@ public class Answer extends AuditModel {
     public Question getQuestion() { return question; }
 
     public void setQuestion(Question question) { this.question = question; }
+
+    public Set<Label> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(Set<Label> labels) {
+        this.labels = labels;
+    }
 }
