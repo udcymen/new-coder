@@ -1,12 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Paper } from '@material-ui/core';
+import TopNavBar from './component/navigation/top-nav-bar.component';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
+
 
 function App() {
   return (
-    <div>
-      Something
-    </div>
+    <BrowserRouter>
+      <Paper>
+        <TopNavBar />
+        <Switch>
+          <Route path="/questions">
+            <div>
+              Questions
+            </div>
+          </Route>
+          <Route path="/about">
+            <div>
+              About
+            </div>
+          </Route>
+          <Route path="/">
+            <div>
+              Home
+            </div>
+          </Route>
+        </Switch>
+      </Paper>
+    </BrowserRouter>
   );
 }
 

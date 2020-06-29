@@ -7,7 +7,6 @@ export interface Question {
     id: string;
     title: string;
     description: string;
-    labels: Label[];
     relatedQuestions: Question[];
 }
 
@@ -17,4 +16,5 @@ export interface Answer {
     version: number;
     content: string;
     note: string;
+    labels: Label[];
 }
