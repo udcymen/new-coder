@@ -35,6 +35,9 @@ public class Answer extends AuditModel {
     @Lob
     private String note;
 
+    @Enumerated(EnumType.STRING)
+    private Language language;
+
     @NotBlank
     @OneToMany
     private Set<Label> labels;
@@ -85,9 +88,13 @@ public class Answer extends AuditModel {
         this.note = note;
     }
 
-    public Question getQuestion() { return question; }
+    public Question getQuestion() {
+        return question;
+    }
 
-    public void setQuestion(Question question) { this.question = question; }
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 
     public Set<Label> getLabels() {
         return labels;
@@ -95,5 +102,13 @@ public class Answer extends AuditModel {
 
     public void setLabels(Set<Label> labels) {
         this.labels = labels;
+    }
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 }

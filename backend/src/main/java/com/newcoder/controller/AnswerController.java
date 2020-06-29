@@ -46,6 +46,8 @@ public class AnswerController {
                     answer.setContent(answerRequest.getContent());
                     answer.setDuration(answerRequest.getDuration());
                     answer.setNote(answerRequest.getNote());
+                    answer.setLabels(answerRequest.getLabels());
+                    answer.setLanguage(answerRequest.getLanguage());
                     return answerRepository.save(answer);
                 }).orElseThrow(() -> new ResourceNotFoundException("Answer not found with id " + answerId));
     }

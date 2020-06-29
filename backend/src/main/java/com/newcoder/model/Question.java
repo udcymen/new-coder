@@ -2,6 +2,7 @@ package com.newcoder.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -21,17 +22,12 @@ public class Question extends AuditModel {
     private long id;
 
     @NotBlank
-    @Size(min = 3, max = 100)
+    @Size(max = 100)
     private String title;
 
     @NotBlank
-    @Lob
+    @Column(columnDefinition="TEXT")
     private String description;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "question_id")
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
-    private Set<Question> relatedQuestions;
 
     public long getId() {
         return id;
@@ -55,13 +51,5 @@ public class Question extends AuditModel {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<Question> getRelatedQuestions() {
-        return relatedQuestions;
-    }
-
-    public void setRelatedQuestions(Set<Question> relatedQuestions) {
-        this.relatedQuestions = relatedQuestions;
     }
 }

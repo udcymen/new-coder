@@ -31,8 +31,6 @@ public class QuestionController {
         return questionRepository.findById(questionId)
                 .map(question -> {
                     question.setDescription(questionRequest.getDescription());
-                    question.setLabels(questionRequest.getLabels());
-                    question.setRelatedQuestions(questionRequest.getRelatedQuestions());
                     question.setTitle(questionRequest.getTitle());
                     return questionRepository.save(question);
                 }).orElseThrow(() -> new ResourceNotFoundException("Question not found with id " + questionId));

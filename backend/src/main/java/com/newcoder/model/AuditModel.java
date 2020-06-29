@@ -1,39 +1,40 @@
 package com.newcoder.model;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 import javax.persistence.*;
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
 public abstract class AuditModel implements Serializable {
-    @Temporal(TemporalType.DATE)
     @Column(name = "created_at", nullable = false, updatable = false)
-    @CreatedDate
-    private Date createdAt;
+    private Timestamp createdAt;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "updated_at", nullable = false)
-    @LastModifiedDate
-    private Date updatedAt;
+    private Timestamp updatedAt;
 
-    public Date getCreatedAt() {
+    @PrePersist
+    protected void onCreate() {
+        updatedAt = createdAt = new Timestamp(System.currentTimeMillis());
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
+
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public Timestamp getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
 }
