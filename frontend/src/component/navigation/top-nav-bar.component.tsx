@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { AppBar, Toolbar, Typography, InputBase, IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles';
-import SideNavBar from './side-nav-bar.component';
+import MenuIcon from '@material-ui/icons/Menu';
 
 
+interface Props {
+    openSideNavBar(): void;
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -17,6 +20,9 @@ const useStyles = makeStyles((theme: Theme) =>
                 display: 'block'
             },
         },
+        menuButton: {
+            marginRight: theme.spacing(2)
+          },
         search: {
             flexGrow: 1,
             position: 'relative',
@@ -48,13 +54,21 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-function TopNavBar() {
+const TopNavBar: React.FC<Props> = ({ openSideNavBar }) => {
     const classes = useStyles();
 
     return (
         <AppBar position="static" >
             <Toolbar>
-                <SideNavBar />
+                <IconButton
+                    edge="start"
+                    className={classes.menuButton}
+                    onClick={openSideNavBar}
+                    color="inherit"
+                    aria-label="open menu"
+                >
+                    <MenuIcon />
+                </IconButton>
                 <Typography className={classes.title} variant="h6" noWrap>
                     New Coder
                 </Typography>
