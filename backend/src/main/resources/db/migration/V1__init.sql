@@ -65,7 +65,6 @@ CREATE TABLE public.answers (
     duration bigint,
     language character varying(255),
     note text,
-    version smallint NOT NULL,
     question_id bigint NOT NULL,
     FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
 );

@@ -25,10 +25,6 @@ public class Answer extends AuditModel {
     private Duration duration;
 
     @NotBlank
-    @Version
-    private short version;
-
-    @NotBlank
     @Lob
     private String content;
 
@@ -62,14 +58,6 @@ public class Answer extends AuditModel {
 
     public void setDuration(Duration duration) {
         this.duration = duration;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(short version) {
-        this.version = version;
     }
 
     public String getContent() {
