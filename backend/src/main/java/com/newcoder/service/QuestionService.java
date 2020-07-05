@@ -1,6 +1,5 @@
 package com.newcoder.service;
 
-import com.newcoder.controller.QuestionController;
 import com.newcoder.exception.ResourceNotFoundException;
 import com.newcoder.model.Question;
 import com.newcoder.repository.QuestionRepository;

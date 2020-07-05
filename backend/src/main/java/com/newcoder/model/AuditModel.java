@@ -11,7 +11,12 @@ import javax.persistence.*;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AuditModel implements Serializable {
-    @Temporal(TemporalType.DATE)
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = -4445710027488874146L;
+
+	@Temporal(TemporalType.DATE)
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
     private Date createdAt;

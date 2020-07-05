@@ -8,7 +8,12 @@ import java.util.Objects;
 @Entity
 @Table(name = "tags")
 public class Tag extends AuditModel {
-    @Id
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = -6948882110532829978L;
+
+	@Id
     @GeneratedValue(generator = "tag_generator")
     @SequenceGenerator(
             name = "tag_generator",

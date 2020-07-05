@@ -10,7 +10,12 @@ import java.util.Set;
 @Entity
 @Table(name = "questions")
 public class Question extends AuditModel {
-    @Id
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 4340681031378299869L;
+
+	@Id
     @GeneratedValue(generator = "question_generator")
     @SequenceGenerator(
             name = "question_generator",
