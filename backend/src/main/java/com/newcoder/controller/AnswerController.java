@@ -1,69 +1,41 @@
 package com.newcoder.controller;
 
-import com.newcoder.exception.ResourceNotFoundException;
 import com.newcoder.model.Answer;
-import com.newcoder.repository.AnswerRepository;
-import com.newcoder.repository.QuestionRepository;
+import com.newcoder.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 public class AnswerController {
     @Autowired
-    private AnswerRepository answerRepository;
-
-    @Autowired
-    private QuestionRepository questionRepository;
+    private AnswerService answerService;
 
     @GetMapping("/questions/{questionId}/answers")
-    public List<Answer> getAnswersByQuestionId(@PathVariable Long questionId) {
-        return answerRepository.findByQuestionId(questionId);
+    public Page<Answer> getAnswersByQuestionId(Pageable pageable, @PathVariable Long questionId) {
+        return answerService.getAnswersByQuestionId(pageable, questionId);
     }
 
     @PostMapping("/questions/{questionId}/answers")
     public Answer addAnswer(@PathVariable Long questionId,
                             @Valid @RequestBody Answer answer) {
-        return questionRepository.findById(questionId)
-                .map(question -> {
-                    answer.setQuestion(question);
-                    return answerRepository.save(answer);
-                }).orElseThrow(() -> new ResourceNotFoundException("Question not found with id " + questionId));
+        return answerService.addAnswer(questionId, answer);
     }
 
     @PutMapping("/questions/{questionId}/answers/{answerId}")
     public Answer updateAnswer(@PathVariable Long questionId,
                                @PathVariable Long answerId,
                                @Valid @RequestBody Answer answerRequest) {
-        if(!questionRepository.existsById(questionId)) {
-            throw new ResourceNotFoundException("Question not found with id " + questionId);
-        }
-
-        return answerRepository.findById(answerId)
-                .map(answer -> {
-                    answer.setContent(answerRequest.getContent());
-                    answer.setDuration(answerRequest.getDuration());
-                    answer.setNote(answerRequest.getNote());
-                    answer.setLabels(answerRequest.getLabels());
-                    answer.setLanguage(answerRequest.getLanguage());
-                    return answerRepository.save(answer);
-                }).orElseThrow(() -> new ResourceNotFoundException("Answer not found with id " + answerId));
+        return answerService.updateAnswer(questionId, answerId, answerRequest);
     }
 
     @DeleteMapping("/questions/{questionId}/answers/{answerId}")
     public ResponseEntity<?> deleteAnswer(@PathVariable Long questionId,
                                           @PathVariable Long answerId) {
-        if(!questionRepository.existsById(questionId)) {
-            throw new ResourceNotFoundException("Question not found with id " + questionId);
-        }
-
-        return answerRepository.findById(answerId)
-                .map(answer -> {
-                    answerRepository.delete(answer);
-                    return ResponseEntity.ok().build();
-                }).orElseThrow(() -> new ResourceNotFoundException("Answer not found with id " + answerId));
-
+        return answerService.deleteAnswer(questionId, answerId);
     }
 }

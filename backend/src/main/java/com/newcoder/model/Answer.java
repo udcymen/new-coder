@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.Duration;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -31,12 +32,8 @@ public class Answer extends AuditModel {
     @Lob
     private String note;
 
-    @Enumerated(EnumType.STRING)
-    private Language language;
-
-    @NotBlank
-    @OneToMany
-    private Set<Label> labels;
+    @OneToMany(mappedBy = "answer", fetch = FetchType.LAZY)
+    private Set<Tag> tags = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "question_id", nullable = false, updatable = false)
@@ -44,13 +41,8 @@ public class Answer extends AuditModel {
     @JsonIgnore
     private Question question;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    @Enumerated(EnumType.STRING)
+    private Language language;
 
     public Duration getDuration() {
         return duration;
@@ -84,12 +76,12 @@ public class Answer extends AuditModel {
         this.question = question;
     }
 
-    public Set<Label> getLabels() {
-        return labels;
+    public Set<Tag> getTags() {
+        return tags;
     }
 
-    public void setLabels(Set<Label> labels) {
-        this.labels = labels;
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
     public Language getLanguage() {

@@ -1,11 +1,11 @@
 package com.newcoder.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
-    public ResourceNotFoundException(String message){
+    public ResourceNotFoundException(String message) {
         super(message);
     }
 
-    public ResourceNotFoundException(String message, Throwable cause){
+    public ResourceNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 }

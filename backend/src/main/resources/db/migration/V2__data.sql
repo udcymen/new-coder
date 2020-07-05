@@ -18,6 +18,7 @@ INSERT INTO public.questions(
 	id, created_at, updated_at, description, title)
 	VALUES (nextval('question_sequence'), NOW(), NOW(), 'Write a function that reverses a string. The input string is given as an array of characters char[]. Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory. You may assume all the characters consist of printable ascii characters.', 'Reverse String');
 
+
 INSERT INTO public.labels(
 	id, created_at, updated_at, name)
 	VALUES (nextval('label_sequence'), NOW(), NOW(), 'Dynamic Programming');
@@ -26,12 +27,19 @@ INSERT INTO public.labels(
 	id, created_at, updated_at, name)
 	VALUES (nextval('label_sequence'), NOW(), NOW(), 'Greedy');
 
-
 INSERT INTO public.labels(
 	id, created_at, updated_at, name)
 	VALUES (nextval('label_sequence'), NOW(), NOW(), 'Binary Search');
 
-
 INSERT INTO public.labels(
 	id, created_at, updated_at, name)
 	VALUES (nextval('label_sequence'), NOW(), NOW(), 'Divide and Conquer');
+
+
+INSERT INTO public.answers(
+    id, created_at, updated_at, content, duration, note, question_id)
+    VALUES (nextval('answer_sequence'), NOW(), NOW(), 'Some Response Here', 30, 'Note', 100);
+
+INSERT INTO public.answers(
+   id, created_at, updated_at, content, duration, note, question_id)
+   VALUES (nextval('answer_sequence'), NOW(), NOW(), 'Another Response Here', 30, 'Note', 100);
