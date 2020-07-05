@@ -1,12 +1,12 @@
 package com.newcoder.repository;
 
 import com.newcoder.model.Answer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
-    List<Answer> findByQuestionId(Long questionId);
+    Page<Answer> findByQuestionId(Pageable pageable, Long questionId);
 }
