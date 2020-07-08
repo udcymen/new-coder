@@ -59,6 +59,16 @@ public class Question extends AuditModel {
         this.tags = tags;
     }
 
+    public Question() {
+    }
+
+    public Question(long id, @NotBlank @Size(max = 100) String title, @NotBlank String description, Set<Tag> tags) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.tags = tags;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
