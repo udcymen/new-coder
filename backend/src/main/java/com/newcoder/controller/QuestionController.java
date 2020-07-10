@@ -16,28 +16,28 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
-    @GetMapping("/questions")
+    @GetMapping("/api/questions")
     public Page<Question> getQuestions(Pageable pageable, String title) {
         return questionService.getQuestions(pageable, title);
     }
 
-    @GetMapping("/questions/{questionId}")
+    @GetMapping("/api/questions/{questionId}")
     public Optional<Question> getQuestionById(@PathVariable long questionId) {
         return questionService.getQuestionById(questionId);
     }
 
-    @PostMapping("/questions")
+    @PostMapping("/api/questions")
     public Question createQuestion(@Valid @RequestBody Question question) {
         return questionService.createQuestion(question);
     }
 
-    @PutMapping("/questions/{questionId}")
+    @PutMapping("/api/questions/{questionId}")
     public Question updateQuestion(@PathVariable long questionId,
                                    @Valid @RequestBody Question questionRequest) {
         return questionService.updateQuestion(questionId, questionRequest);
     }
 
-    @DeleteMapping("questions/{questionId}")
+    @DeleteMapping("/api/questions/{questionId}")
     public ResponseEntity<?> deleteQuestion(@PathVariable long questionId) {
         return questionService.deleteQuestion(questionId);
     }

@@ -15,25 +15,26 @@ public class AnswerController {
     @Autowired
     private AnswerService answerService;
 
-    @GetMapping("/questions/{questionId}/answers")
-    public Page<Answer> getAnswersByQuestionId(Pageable pageable, @PathVariable Long questionId) {
+    @GetMapping("/api/questions/{questionId}/answers")
+    public Page<Answer> getAnswersByQuestionId(Pageable pageable, 
+                                                @PathVariable Long questionId) {
         return answerService.getAnswersByQuestionId(pageable, questionId);
     }
 
-    @PostMapping("/questions/{questionId}/answers")
+    @PostMapping("/api/questions/{questionId}/answers")
     public Answer addAnswer(@PathVariable Long questionId,
                             @Valid @RequestBody Answer answer) {
         return answerService.addAnswer(questionId, answer);
     }
 
-    @PutMapping("/questions/{questionId}/answers/{answerId}")
+    @PutMapping("/api/questions/{questionId}/answers/{answerId}")
     public Answer updateAnswer(@PathVariable Long questionId,
                                @PathVariable Long answerId,
                                @Valid @RequestBody Answer answerRequest) {
         return answerService.updateAnswer(questionId, answerId, answerRequest);
     }
 
-    @DeleteMapping("/questions/{questionId}/answers/{answerId}")
+    @DeleteMapping("/api/questions/{questionId}/answers/{answerId}")
     public ResponseEntity<?> deleteAnswer(@PathVariable Long questionId,
                                           @PathVariable Long answerId) {
         return answerService.deleteAnswer(questionId, answerId);

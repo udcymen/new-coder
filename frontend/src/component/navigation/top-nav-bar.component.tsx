@@ -4,7 +4,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 
-
 interface Props {
     openSideNavBar(): void;
 }

@@ -6,7 +6,6 @@ import HomeIcon from '@material-ui/icons/Home';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import InfoIcon from '@material-ui/icons/Info';
 
-
 interface Props extends RouteComponentProps {
   showSideNavBar: boolean;
   closeSideNavBar(): void;

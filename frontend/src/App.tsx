@@ -5,7 +5,6 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import TopNavBar from './component/navigation/top-nav-bar.component';
 import SideNavBar from './component/navigation/side-nav-bar.component';
 
-
 export const App: React.FC = () => {
   const [showSideNavBar, setShowSideNavBar] = useState(false);
 
