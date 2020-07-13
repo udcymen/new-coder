@@ -76,6 +76,7 @@ const TopNavBar: React.FC<Props> = ({ openSideNavBar }) => {
                         <SearchIcon />
                     </div>
                     <InputBase
+                        fullWidth={true}
                         placeholder="Search Question Here…"
                         classes={{
                             root: classes.inputRoot,

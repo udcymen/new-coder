@@ -4,6 +4,7 @@ import { Paper } from '@material-ui/core';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import TopNavBar from './component/navigation/top-nav-bar.component';
 import SideNavBar from './component/navigation/side-nav-bar.component';
+import QuestionHome from './component/questions/question-home.component';
 
 export const App: React.FC = () => {
   const [showSideNavBar, setShowSideNavBar] = useState(false);
@@ -32,9 +33,7 @@ export const App: React.FC = () => {
             </div>
           </Route>
           <Route path="/questions">
-            <div>
-              Questions
-            </div>
+            <QuestionHome />
           </Route>
           <Route path="/about">
             <div>
