@@ -2,7 +2,7 @@ FROM openjdk:14-jdk-alpine AS build
 WORKDIR /workspace/app
 
 COPY . /workspace/app
-RUN ./gradlew clean build
+RUN ./gradlew clean build -x test
 RUN mkdir -p build/dependency && (cd build/dependency; jar -xf ../libs/*.jar)
 
 FROM openjdk:14-jdk-alpine

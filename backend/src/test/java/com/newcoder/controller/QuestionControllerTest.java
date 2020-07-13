@@ -9,7 +9,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.assertj.core.api.Assertions;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -26,9 +28,14 @@ import java.util.List;
 /**
  * {@link QuestionController}
  */
-@SpringBootTest
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class QuestionControllerTest {
+    private static final String ROOT_URL = "http://localhost:";
+
+    @LocalServerPort
+    private int port;
+
     @Autowired
     private QuestionController questionController;
 
@@ -56,7 +63,7 @@ public class QuestionControllerTest {
         Mockito.when(questionService.getQuestions(PageRequest.of(0, 20), null))
                 .thenReturn(new PageImpl<>(questions));
         this.mockMvc
-                .perform(get("/questions"))
+                .perform(get(ROOT_URL + port + QuestionController.GET_QUESTIONS_ROUTE))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

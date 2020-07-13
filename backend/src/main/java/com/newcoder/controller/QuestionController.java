@@ -13,10 +13,12 @@ import java.util.Optional;
 
 @RestController
 public class QuestionController {
+    protected static final String GET_QUESTIONS_ROUTE = "/api/questions";
+
     @Autowired
     private QuestionService questionService;
 
-    @GetMapping("/api/questions")
+    @GetMapping(GET_QUESTIONS_ROUTE)
     public Page<Question> getQuestions(Pageable pageable, String title) {
         return questionService.getQuestions(pageable, title);
     }
