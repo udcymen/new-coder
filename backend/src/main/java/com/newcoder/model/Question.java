@@ -75,11 +75,13 @@ public class Question extends AuditModel {
         if (o == null || getClass() != o.getClass()) return false;
         Question question = (Question) o;
         return title.equals(question.title) &&
-                description.equals(question.description);
+                description.equals(question.description) &&
+                Objects.equals(tags, question.tags);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, description);
+        return Objects.hash(title, description, tags);
     }
+    
 }

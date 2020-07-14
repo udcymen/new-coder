@@ -47,12 +47,15 @@ public class Tag extends AuditModel {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Tag label = (Tag) o;
-        return name.equals(label.name);
+        Tag tag = (Tag) o;
+        return name.equals(tag.name) &&
+                Objects.equals(answer, tag.answer) &&
+                Objects.equals(question, tag.question);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, answer, question);
     }
+    
 }

@@ -1,25 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import { Question } from '../../common/type';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
     }),
 );
 
-const GET_QUESTIONS_URL = "/api/questions"
+const GET_QUESTIONS_URL = "/api/questions";
 
 const QuestionHome: React.FC<{}> = () => {
     const classes = useStyles();
+    const [questions, setQuestions] = useState<Question[]>([]);
 
-    axios.get(GET_QUESTIONS_URL)
-        .then(res => console.log(res))
-        .catch(err => {
-            console.log(err);
-        });
+    const fetchQuestions = () => {
+        axios.get(GET_QUESTIONS_URL)
+            .then(res => setQuestions(res.data.content))
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    useEffect(() => {
+        fetchQuestions();
+    }, []);
 
     return (
-        <pre>{}</pre>
+        <div>
+            {questions.map((question: Question) => {
+                return (
+                    <pre>
+                        {JSON.stringify(question)}
+                    </pre>
+                );
+            })}
+        </div>
     );
 }
 

@@ -1,5 +1,12 @@
 version: "3.2"
 services:
+  frontend:
+    image: congmeng1015/newcoder-frontend:latest
+    container_name: newcoder_react
+    ports:
+      - "3000:3000"
+    depends_on:
+      - controller
   controller:
     image: congmeng1015/newcoder:latest
     container_name: newcoder_springboot

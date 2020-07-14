@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.Duration;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -95,5 +96,23 @@ public class Answer extends AuditModel {
 
     public void setLanguage(Language language) {
         this.language = language;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Answer answer = (Answer) o;
+        return duration.equals(answer.duration) &&
+                content.equals(answer.content) &&
+                Objects.equals(note, answer.note) &&
+                Objects.equals(tags, answer.tags) &&
+                Objects.equals(question, answer.question) &&
+                language == answer.language;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(duration, content, note, tags, question, language);
     }
 }

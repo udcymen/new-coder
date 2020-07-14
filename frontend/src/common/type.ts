@@ -1,4 +1,4 @@
-export interface Label {
+export interface Tag {
     id: string;
     name: string;
 }
@@ -7,7 +7,6 @@ export interface Question {
     id: string;
     title: string;
     description: string;
-    relatedQuestions: Question[];
 }
 
 export interface Answer {
@@ -16,5 +15,5 @@ export interface Answer {
     version: number;
     content: string;
     note: string;
-    labels: Label[];
+    tags: Tag[];
 }

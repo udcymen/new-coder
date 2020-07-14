@@ -1,11 +1,15 @@
 import React, { useState, useRef } from 'react';
-import { AppBar, Toolbar, Typography, InputBase, IconButton } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import { AppBar, Toolbar, Typography, List, ListItem, ListItemIcon, ListItemText, MenuItem, IconButton, Container } from '@material-ui/core';
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import HomeIcon from '@material-ui/icons/Home';
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import InfoIcon from '@material-ui/icons/Info';
 
-interface Props {
-    openSideNavBar(): void;
+interface Navigation {
+    text: string;
+    icon: any;
+    onClick(): void
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -16,78 +20,60 @@ const useStyles = makeStyles((theme: Theme) =>
         title: {
             display: 'none',
             [theme.breakpoints.up('sm')]: {
-                display: 'block'
+                display: 'block',
+                marginRight: theme.spacing(2),
             },
         },
         menuButton: {
-            marginRight: theme.spacing(2)
-          },
-        search: {
-            flexGrow: 1,
-            position: 'relative',
-            borderRadius: theme.shape.borderRadius,
-            backgroundColor: fade(theme.palette.common.white, 0.15),
-            '&:hover': {
-                backgroundColor: fade(theme.palette.common.white, 0.25)
-            },
-            marginLeft: theme.spacing(5),
+            marginInline: theme.spacing(2),
         },
-        searchIcon: {
-            padding: theme.spacing(0, 2),
-            height: '100%',
-            position: 'absolute',
-            pointerEvents: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-        },
-        inputRoot: {
-            color: 'inherit'
-        },
-        inputInput: {
-            padding: theme.spacing(1, 1, 1, 0),
-            paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-            transition: theme.transitions.create('width'),
-            width: '100%'
-        },
+
     }),
 );
 
-const TopNavBar: React.FC<Props> = ({ openSideNavBar }) => {
+const TopNavBar: React.FC<RouteComponentProps> = ({ history }) => {
     const classes = useStyles();
+    const navigations: Navigation[] = [
+        {
+            text: "Home",
+            icon: <HomeIcon />,
+            onClick: () => history.push("/")
+        },
+        {
+            text: "Question",
+            icon: <QuestionAnswerIcon />,
+            onClick: () => history.push("/questions")
+        },
+        {
+            text: "About",
+            icon: <InfoIcon />,
+            onClick: () => history.push("/about")
+        },
+    ]
 
     return (
         <AppBar position="static" >
-            <Toolbar>
-                <IconButton
-                    edge="start"
-                    className={classes.menuButton}
-                    onClick={openSideNavBar}
-                    color="inherit"
-                    aria-label="open menu"
-                >
-                    <MenuIcon />
-                </IconButton>
-                <Typography className={classes.title} variant="h6" noWrap>
-                    New Coder
-                </Typography>
-                <div className={classes.search}>
-                    <div className={classes.searchIcon}>
-                        <SearchIcon />
-                    </div>
-                    <InputBase
-                        fullWidth={true}
-                        placeholder="Search Question Here…"
-                        classes={{
-                            root: classes.inputRoot,
-                            input: classes.inputInput,
-                        }}
-                        inputProps={{ 'aria-label': 'search questions' }}
-                    />
-                </div>
-            </Toolbar>
+            <Container>
+                <Toolbar>
+                    <Typography className={classes.title} variant="h6" noWrap>
+                        New Coder
+                    </Typography>
+                    {navigations.map((navigation: Navigation) => {
+                        const { text, icon, onClick } = navigation;
+                        return (
+                            <MenuItem aria-label={text} color="inherit" className={classes.menuButton} onClick={onClick}>
+                                {icon}
+                                <Typography className={classes.title} variant="subtitle1" noWrap>
+                                    {text}
+                                </Typography>
+                            </MenuItem>
+                        );
+                    })}
+                </Toolbar>
+            </Container>
+
         </AppBar>
     );
 }
 
-export default TopNavBar;
+export default withRouter(TopNavBar);
