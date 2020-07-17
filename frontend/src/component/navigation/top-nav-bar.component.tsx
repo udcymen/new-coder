@@ -1,79 +1,88 @@
-import React, { useState, useRef } from 'react';
-import { AppBar, Toolbar, Typography, List, ListItem, ListItemIcon, ListItemText, MenuItem, IconButton, Container } from '@material-ui/core';
-import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-import HomeIcon from '@material-ui/icons/Home';
-import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
-import InfoIcon from '@material-ui/icons/Info';
+import React from 'react';
 
-interface Navigation {
-    text: string;
-    icon: any;
-    onClick(): void
+import { Theme, makeStyles } from '@material-ui/core/styles';
+
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Badge from '@material-ui/core/Badge';
+import IconButton from '@material-ui/core/IconButton';
+
+import MenuIcon from '@material-ui/icons/Menu';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+
+import clsx from 'clsx';
+
+interface Props {
+    openSideNav: boolean;
+    handleDrawerOpen(): void;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            flexGrow: 1
-        },
-        title: {
-            display: 'none',
-            [theme.breakpoints.up('sm')]: {
-                display: 'block',
-                marginRight: theme.spacing(2),
-            },
-        },
-        menuButton: {
-            marginInline: theme.spacing(2),
-        },
+const drawerWidth = 240;
 
-    }),
-);
+const useStyles = makeStyles((theme: Theme) => ({
+    title: {
+        flexGrow: 1,
+    },
+    menuButton: {
+        marginInline: theme.spacing(2),
+    },
+    toolbar: {
+        paddingRight: 24,
+    },
+    toolbarIcon: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        padding: '0 8px',
+        ...theme.mixins.toolbar,
+    },
+    appBar: {
+        zIndex: theme.zIndex.drawer + 1,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+    },
+    appBarShift: {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
+    menuButtonHidden: {
+        display: 'none',
+    },
+}));
 
-const TopNavBar: React.FC<RouteComponentProps> = ({ history }) => {
+const TopNavBar: React.FC<Props> = ({ openSideNav, handleDrawerOpen }) => {
     const classes = useStyles();
-    const navigations: Navigation[] = [
-        {
-            text: "Home",
-            icon: <HomeIcon />,
-            onClick: () => history.push("/")
-        },
-        {
-            text: "Question",
-            icon: <QuestionAnswerIcon />,
-            onClick: () => history.push("/questions")
-        },
-        {
-            text: "About",
-            icon: <InfoIcon />,
-            onClick: () => history.push("/about")
-        },
-    ]
 
     return (
-        <AppBar position="static" >
-            <Container>
-                <Toolbar>
-                    <Typography className={classes.title} variant="h6" noWrap>
-                        New Coder
-                    </Typography>
-                    {navigations.map((navigation: Navigation) => {
-                        const { text, icon, onClick } = navigation;
-                        return (
-                            <MenuItem aria-label={text} color="inherit" className={classes.menuButton} onClick={onClick}>
-                                {icon}
-                                <Typography className={classes.title} variant="subtitle1" noWrap>
-                                    {text}
-                                </Typography>
-                            </MenuItem>
-                        );
-                    })}
-                </Toolbar>
-            </Container>
-
+        <AppBar aria-label="Top Navigation Menu" className={clsx(classes.appBar, openSideNav && classes.appBarShift)}>
+            <Toolbar className={classes.toolbar}>
+                <IconButton
+                    edge="start"
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen}
+                    className={clsx(classes.menuButton, openSideNav && classes.menuButtonHidden)}
+                >
+                    <MenuIcon />
+                </IconButton>
+                <Typography component="h1" variant="h6" color="inherit" noWrap aria-label="New Coder" className={classes.title}>
+                    New Coder
+                </Typography>
+                <IconButton color="inherit">
+                    <Badge badgeContent={4} color="secondary">
+                        <NotificationsIcon />
+                    </Badge>
+                </IconButton>
+            </Toolbar>
         </AppBar>
     );
 }
 
-export default withRouter(TopNavBar);
+export default TopNavBar;
