@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Theme, makeStyles } from '@material-ui/core/styles';
+import { Theme, makeStyles, fade } from '@material-ui/core/styles';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,72 +11,60 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 
-import clsx from 'clsx';
-
 interface Props {
-    openSideNav: boolean;
-    handleDrawerOpen(): void;
+    toggleDrawer(): void;
 }
 
-const drawerWidth = 240;
-
 const useStyles = makeStyles((theme: Theme) => ({
+    appBar: {
+        zIndex: theme.zIndex.drawer + 1,
+    },
+    menuButton: {
+        marginRight: theme.spacing(0),
+        [theme.breakpoints.up('sm')]: {
+            marginRight: theme.spacing(2),
+        },
+    },
     title: {
         flexGrow: 1,
     },
-    menuButton: {
-        marginInline: theme.spacing(2),
-    },
-    toolbar: {
-        paddingRight: 24,
-    },
     toolbarIcon: {
-        display: 'flex',
+        display: 'none',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        padding: '0 8px',
+        padding: theme.spacing(1),
         ...theme.mixins.toolbar,
-    },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButtonHidden: {
-        display: 'none',
+        [theme.breakpoints.up('sm')]: {
+            display: 'flex',
+        },
     },
 }));
 
-const TopNavBar: React.FC<Props> = ({ openSideNav, handleDrawerOpen }) => {
+const TopNavBar: React.FC<Props> = ({ toggleDrawer }) => {
     const classes = useStyles();
 
     return (
-        <AppBar aria-label="Top Navigation Menu" className={clsx(classes.appBar, openSideNav && classes.appBarShift)}>
-            <Toolbar className={classes.toolbar}>
+        <AppBar aria-label="Top Navigation Menu" className={classes.appBar}>
+            <Toolbar>
                 <IconButton
                     edge="start"
                     color="inherit"
                     aria-label="open drawer"
-                    onClick={handleDrawerOpen}
-                    className={clsx(classes.menuButton, openSideNav && classes.menuButtonHidden)}
+                    onClick={toggleDrawer}
+                    className={classes.menuButton}
                 >
                     <MenuIcon />
                 </IconButton>
                 <Typography component="h1" variant="h6" color="inherit" noWrap aria-label="New Coder" className={classes.title}>
                     New Coder
                 </Typography>
-                <IconButton color="inherit">
+                <IconButton color="inherit" className={classes.toolbarIcon}>
                     <Badge badgeContent={4} color="secondary">
+                        <NotificationsIcon />
+                    </Badge>
+                </IconButton>
+                <IconButton color="inherit" className={classes.toolbarIcon}>
+                    <Badge badgeContent={3} color="secondary">
                         <NotificationsIcon />
                     </Badge>
                 </IconButton>

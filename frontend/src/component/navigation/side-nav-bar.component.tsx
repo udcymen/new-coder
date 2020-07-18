@@ -2,15 +2,12 @@ import React from 'react';
 
 import { Theme, makeStyles } from '@material-ui/core/styles';
 
-import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import IconButton from '@material-ui/core/IconButton';
 
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import HomeIcon from '@material-ui/icons/Home';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import InfoIcon from '@material-ui/icons/Info';
@@ -30,13 +27,11 @@ interface NavigationItem {
     icon: any;
 }
 
-const drawerWidth = 240;
-
 const useStyles = makeStyles((theme: Theme) => ({
     drawerPaper: {
         position: 'relative',
         whiteSpace: 'nowrap',
-        width: drawerWidth,
+        width: theme.spacing(26),
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -54,10 +49,7 @@ const useStyles = makeStyles((theme: Theme) => ({
             width: theme.spacing(9),
         },
     },
-    toolbarIcon: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
+    appBarSpacer: {
         ...theme.mixins.toolbar,
     },
     navLink: {
@@ -109,12 +101,7 @@ const SideNavBar: React.FC<Props> = ({ openSideNav, handleDrawerClose }) => {
             }}
             open={openSideNav}
         >
-            <div className={classes.toolbarIcon}>
-                <IconButton onClick={handleDrawerClose} >
-                    <ChevronLeftIcon className={classes.itemIcon} />
-                </IconButton>
-            </div>
-            <Divider classes={{root: classes.divider}} />
+            <div className={classes.appBarSpacer} />
             <List>
                 {NavigationItems.map((navigationItem: NavigationItem) => {
                     const { to, text, icon } = navigationItem;

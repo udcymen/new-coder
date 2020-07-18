@@ -7,6 +7,7 @@ export interface Question {
     id: string;
     title: string;
     description: string;
+    [key: string]: string;
 }
 
 export interface Answer {
