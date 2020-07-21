@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Theme, makeStyles, fade } from '@material-ui/core/styles';
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,30 +15,32 @@ interface Props {
     toggleDrawer(): void;
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(0),
-        [theme.breakpoints.up('sm')]: {
-            marginRight: theme.spacing(2),
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        appBar: {
+            zIndex: theme.zIndex.drawer + 1,
         },
-    },
-    title: {
-        flexGrow: 1,
-    },
-    toolbarIcon: {
-        display: 'none',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: theme.spacing(1),
-        ...theme.mixins.toolbar,
-        [theme.breakpoints.up('sm')]: {
-            display: 'flex',
+        menuButton: {
+            marginRight: theme.spacing(0),
+            [theme.breakpoints.up('sm')]: {
+                marginRight: theme.spacing(2),
+            },
         },
-    },
-}));
+        title: {
+            flexGrow: 1,
+        },
+        toolbarIcon: {
+            display: 'none',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            padding: theme.spacing(1),
+            ...theme.mixins.toolbar,
+            [theme.breakpoints.up('sm')]: {
+                display: 'flex',
+            },
+        },
+    }),
+);
 
 const TopNavBar: React.FC<Props> = ({ toggleDrawer }) => {
     const classes = useStyles();
@@ -55,7 +57,7 @@ const TopNavBar: React.FC<Props> = ({ toggleDrawer }) => {
                 >
                     <MenuIcon />
                 </IconButton>
-                <Typography component="h1" variant="h6" color="inherit" noWrap aria-label="New Coder" className={classes.title}>
+                <Typography variant="h6" noWrap color="inherit" aria-label="New Coder" className={classes.title}>
                     New Coder
                 </Typography>
                 <IconButton color="inherit" className={classes.toolbarIcon}>

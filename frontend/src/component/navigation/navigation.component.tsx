@@ -4,7 +4,7 @@ import TopNavBar from './top-nav-bar.component';
 import SideNavBar from './side-nav-bar.component';
 
 const Navigation: React.FC = () => {
-    const [openSideNav, setOpenSideNav] = React.useState(false);
+    const [openSideNav, setOpenSideNav] = React.useState(true);
 
     const toggleDrawer = () => {
         setOpenSideNav(!openSideNav);

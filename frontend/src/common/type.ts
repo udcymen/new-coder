@@ -1,6 +1,7 @@
 export interface Tag {
     id: string;
     name: string;
+    [key: string]: string;
 }
 
 export interface Question {
@@ -13,8 +14,8 @@ export interface Question {
 export interface Answer {
     id: string;
     duration: string;
-    version: number;
     content: string;
     note: string;
     tags: Tag[];
+    [key: string]: string | Tag[];
 }
